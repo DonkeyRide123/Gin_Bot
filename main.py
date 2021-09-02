@@ -19,6 +19,7 @@ async def on_ready():
         status=discord.Status.online, activity=discord.Game("!woof _help/!meow _help")
     )
 
+
 # Flips a coin
 @client.command()
 async def flipacoin(ctx):
@@ -137,6 +138,7 @@ async def feedback(ctx):
             "Email me (donkeyride0728@gmail.com) to send your feedback, meow!"
         )
 
+
 # Kicks someone if the command user has permissions to use the command
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -151,6 +153,7 @@ async def kick(ctx, member: discord.Member, *, reason=None):
             f"{member.mention} has been kicked, woof! Here's the reason, meow: No reason specified"
         )
 
+
 # Bans someone if the command user has permissions to use the command
 @client.command()
 @commands.has_permissions(ban_members=True)
@@ -163,10 +166,12 @@ async def ban(ctx, member: discord.Member, *, reason=None):
     else:
         await ctx.send(f'{member.mention} has been banned for: "{reason}", meow!')
 
+
 # Calls someone gay
 @client.command()
 async def isgay(ctx, member: discord.Member):
     await ctx.send(f"{ctx.message.author.mention} thinks {member.mention} is gay!")
+
 
 # The code below is just error handling
 @_8ball.error
@@ -220,7 +225,8 @@ async def ban_error(ctx, error):
         else:
             await ctx.send("You don't have permissions to do that, meow!")
 
- # If someone says a certain message, it will react with a heart.
+
+# If someone says a certain message, it will react with a heart.
 @client.event
 async def on_message(message):
     emoji = client.get_emoji(882008386663772231)
@@ -234,7 +240,7 @@ async def on_message(message):
     await client.process_commands(message)
 
 
-# More error handling    
+# More error handling
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
@@ -242,7 +248,8 @@ async def on_command_error(ctx, error):
             "Oh no, there's a command error, woof! That command doesn't exist, meow."
         )
 
-# Keeps the bot
+
+# Keeps the bot online
 keep_alive()
 
 # Runs the bot
