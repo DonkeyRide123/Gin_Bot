@@ -1,3 +1,4 @@
+# Imports modules
 import discord
 from discord.utils import get
 import random
@@ -10,7 +11,7 @@ from discord.ext import commands
 TOKEN = os.environ.get("token")
 client = commands.Bot(command_prefix=("!woof ", "!meow "))
 
-
+# Tells me the bot is ready
 @client.event
 async def on_ready():
     print("Bot is ready")
@@ -18,7 +19,7 @@ async def on_ready():
         status=discord.Status.online, activity=discord.Game("!woof _help/!meow _help")
     )
 
-
+# Flips a coin
 @client.command()
 async def flipacoin(ctx):
     randomnumber = random.randint(1, 2)
@@ -33,6 +34,7 @@ async def flipacoin(ctx):
         await ctx.send(f"The coin says tails, meow!")
 
 
+# Simulates a magic 8ball
 @client.command(aliases=["8ball"])
 async def _8ball(ctx, *, question):
     answers = [
@@ -54,6 +56,7 @@ async def _8ball(ctx, *, question):
     await ctx.send(random.choice(answers))
 
 
+# Tells you the commands
 @client.command()
 async def _help(ctx):
     embed = discord.Embed(title="Commands", colour=discord.Colour.red())
@@ -91,6 +94,7 @@ async def _help(ctx):
     await ctx.send(embed=embed)
 
 
+# Calls someone pretty
 @client.command()
 async def ispretty(ctx, member: discord.Member):
     gin = get(ctx.guild.members, name="Gin")
@@ -106,6 +110,7 @@ async def ispretty(ctx, member: discord.Member):
         )
 
 
+# Calls someone ugly
 @client.command()
 async def isugly(ctx, member: discord.Member):
     gin = get(ctx.guild.members, name="Gin")
@@ -119,6 +124,7 @@ async def isugly(ctx, member: discord.Member):
         await ctx.send(f"{ctx.message.author.mention} thinks {member.mention} is ugly!")
 
 
+# Lets you know how to send me feedback
 @client.command()
 async def feedback(ctx):
     mow = random.randint(1, 2)
@@ -131,7 +137,7 @@ async def feedback(ctx):
             "Email me (donkeyride0728@gmail.com) to send your feedback, meow!"
         )
 
-
+# Kicks someone if the command user has permissions to use the command
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member: discord.Member, *, reason=None):
@@ -145,9 +151,9 @@ async def kick(ctx, member: discord.Member, *, reason=None):
             f"{member.mention} has been kicked, woof! Here's the reason, meow: No reason specified"
         )
 
-
+# Bans someone if the command user has permissions to use the command
 @client.command()
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(ban_members=True)
 async def ban(ctx, member: discord.Member, *, reason=None):
     mow = random.randint(1, 2)
     await member.ban(reason=reason)
@@ -157,12 +163,12 @@ async def ban(ctx, member: discord.Member, *, reason=None):
     else:
         await ctx.send(f'{member.mention} has been banned for: "{reason}", meow!')
 
-
+# Calls someone gay
 @client.command()
 async def isgay(ctx, member: discord.Member):
     await ctx.send(f"{ctx.message.author.mention} thinks {member.mention} is gay!")
 
-
+# The code below is just error handling
 @_8ball.error
 async def _8ballerror(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -214,7 +220,7 @@ async def ban_error(ctx, error):
         else:
             await ctx.send("You don't have permissions to do that, meow!")
 
-
+ # If someone says a certain message, it will react with a heart.
 @client.event
 async def on_message(message):
     emoji = client.get_emoji(882008386663772231)
@@ -228,6 +234,7 @@ async def on_message(message):
     await client.process_commands(message)
 
 
+# More error handling    
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
@@ -235,8 +242,8 @@ async def on_command_error(ctx, error):
             "Oh no, there's a command error, woof! That command doesn't exist, meow."
         )
 
-
+# Keeps the bot
 keep_alive()
 
-
+# Runs the bot
 client.run(TOKEN)
