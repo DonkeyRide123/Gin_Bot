@@ -13,7 +13,7 @@ TOKEN = os.environ.get("token")
 # Enables the client with the prefixes "!woof" and !meow"
 client = commands.Bot(command_prefix=("!woof ", "!meow "))
 
-# Tells me the bot is ready
+# Tells me the bot is ready and sets its status to the help command
 @client.event
 async def on_ready():
     print("Bot is ready")
