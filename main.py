@@ -8,7 +8,9 @@ from webserver import keep_alive
 from discord.ext import commands
 
 
+# Gets the token environment variable
 TOKEN = os.environ.get("token")
+# Enables the client with the prefixes "!woof" and !meow"
 client = commands.Bot(command_prefix=("!woof ", "!meow "))
 
 # Tells me the bot is ready
